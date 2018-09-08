@@ -16,4 +16,11 @@ namespace CarDataContractValidator
             RuleFor(c => c.FirstRegistration).Empty().When(c => c.IsNew).WithMessage("FistRegistration date must not be passed for new car");
         }
     }
+    public class CarIdValidator : AbstractValidator<int>
+    {
+        public CarIdValidator()
+        {
+            RuleFor(c => c).GreaterThan(0).LessThanOrEqualTo(int.MaxValue);
+        }
+    }
 }

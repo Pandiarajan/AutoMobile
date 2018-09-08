@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using CarDataContract;
@@ -8,13 +9,15 @@ namespace AutoRepository
     public class CarRepository : ICarRepository
     {
         List<CarEntity> cars = new List<CarEntity>();
-        static volatile int id = 0;
+        static volatile int id;
         object _lockObject_ = new object();
         private readonly IMapper mapper;
 
         public CarRepository(IMapper mapper)
         {
             this.mapper = mapper;
+            cars.AddRange(InMemoryDataStore.Get());
+            id = 3;
         }
 
         public Car Add(CarContract carContract)

@@ -8,6 +8,8 @@ using AutoApi.Config;
 using FluentValidation.AspNetCore;
 using System.Reflection;
 using CarDataContractValidator;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace AutoApi
 {
@@ -25,7 +27,11 @@ namespace AutoApi
         {
             services.AddAutoMapper()
             .AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-            .AddFluentValidation(f=> f.RegisterValidatorsFromAssembly(Assembly.GetAssembly(typeof(DataContractValidator))));
+            .AddFluentValidation(f=> f.RegisterValidatorsFromAssembly(Assembly.GetAssembly(typeof(DataContractValidator))))
+            .AddJsonOptions(opt =>
+            {
+                opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            }); 
             services.AddDependencies();
         }
 

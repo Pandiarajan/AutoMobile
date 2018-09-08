@@ -39,9 +39,9 @@ namespace AutoApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int carId)
+        public ActionResult Delete(int id)
         {
-            if (carRepository.Delete(carId))
+            if (carRepository.Delete(id))
                 return Ok();
             else
                 return NotFound();
