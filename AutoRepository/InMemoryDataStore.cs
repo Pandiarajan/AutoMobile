@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace AutoRepository
 {
-    public static class InMemoryDataStore
+    public class InMemoryDataStore : IDataStore
     {
-        public static IEnumerable<CarEntity> Get()
+        public IEnumerable<CarEntity> Get()
         {
             yield return new CarEntity { Id = 1, Title = "BMW 1", FirstRegistration = new DateTime(2010, 05, 05), IsNew = false, Fuel = Fuel.Diesel, Mileage = 20, Price = 10000 };
             yield return new CarEntity { Id = 2, Title = "BMW 2", IsNew = true, Fuel = Fuel.Gasoline, Price = 20000 };

@@ -12,11 +12,13 @@ namespace AutoRepository
         static volatile int id;
         object _lockObject_ = new object();
         private readonly IMapper mapper;
+        private readonly IDataStore dataStore;
 
-        public CarRepository(IMapper mapper)
+        public CarRepository(IMapper mapper, IDataStore dataStore)
         {
             this.mapper = mapper;
-            cars.AddRange(InMemoryDataStore.Get());
+            this.dataStore = dataStore;
+            cars.AddRange(dataStore.Get());
             id = 3;
         }
 

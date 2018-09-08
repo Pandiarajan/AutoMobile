@@ -11,6 +11,7 @@ namespace AutoApi.Config
         {
             services.AddScoped<ICarsController, CarsController>();
             services.AddScoped<ICarRepository, CarRepository>();
+            services.AddScoped<IDataStore, InMemoryDataStore>();
             return services;
         }
     }

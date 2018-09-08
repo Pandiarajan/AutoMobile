@@ -12,7 +12,7 @@ namespace AutoApiUnitTests
 
         public CarsControllerTests()
         {           
-            carsController = new CarsController(new CarRepository(Config.GetMapper()));
+            carsController = new CarsController(new CarRepository(Config.GetMapper(), new InMemoryDataStore()));
         }
 
         [Fact]
