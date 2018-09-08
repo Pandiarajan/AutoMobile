@@ -1,45 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using AutoApi.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AutoApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class CarsController : ControllerBase, ICarsController
     {
-        // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<Car>> Get()
         {
-            return new string[] { "value1", "value2" };
+            throw new System.NotImplementedException();
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<Car> Get(int id)
         {
-            return "value";
+            throw new System.NotImplementedException();
         }
-
-        // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<Car> Post([FromBody] CarContract car)
         {
+            throw new System.NotImplementedException();
         }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(int carId)
         {
+            throw new System.NotImplementedException();
         }
     }
 }
