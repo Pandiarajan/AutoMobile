@@ -15,6 +15,7 @@ namespace AutoApi.Controllers
         {
             this.carRepository = carRepository;
         }
+
         [HttpGet]
         public ActionResult<IEnumerable<Car>> Get()
         {
@@ -24,13 +25,19 @@ namespace AutoApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<Car> Get(int id)
         {
-            throw new System.NotImplementedException();
+            var car = carRepository.GetCarById(id);
+            if (car != null)
+                return Ok(car);
+            else
+                return NotFound();
         }
+
         [HttpPost]
         public ActionResult<Car> Post([FromBody] CarContract car)
         {
             return Ok(carRepository.Add(car));
         }
+
         [HttpDelete("{id}")]
         public ActionResult Delete(int carId)
         {

@@ -38,7 +38,12 @@ namespace AutoRepository
 
         public Car GetCarById(int carId)
         {
-            throw new System.NotImplementedException();
+            var car = cars.FirstOrDefault(c => c.Id == carId && !c.IsDeleted);
+            if (car != null)
+            {
+                return mapper.Map<Car>(car);
+            }
+            return null;
         }
 
         public IEnumerable<Car> GetCars()

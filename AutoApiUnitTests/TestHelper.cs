@@ -19,10 +19,11 @@ namespace AutoApiUnitTests
             var okResult = Assert.IsType<OkObjectResult>(actionResultCar.Result);
             return (IEnumerable<Car>)okResult.Value;
         }
-        public static CarContract GetContract()
+
+        public static CarContract GetOldCarContract()
         {
             Random r = new Random();
-            return new CarContract { Title = "BMW Car" + r.Next(1,1000), FirstRegistration = new DateTime(2018, r.Next(1,12) , r.Next(1,28)) };
+            return new CarContract { IsNew = false, Title = "BMW Car" + r.Next(1,1000), FirstRegistration = new DateTime(2018, r.Next(1,12) , r.Next(1,28)) };
         }
     }
 }
