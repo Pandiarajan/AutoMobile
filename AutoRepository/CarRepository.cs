@@ -36,7 +36,7 @@ namespace AutoRepository
 
         public IEnumerable<Car> GetCars()
         {
-            throw new System.NotImplementedException();
+            return cars;
         }
 
         private int GetNextNumber()

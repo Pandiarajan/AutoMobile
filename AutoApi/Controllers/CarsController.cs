@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoRepository;
 using CarDataContract;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ namespace AutoApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Car>> Get()
         {
-            throw new System.NotImplementedException();
+            return Ok(carRepository.GetCars());
         }
 
         [HttpGet("{id}")]

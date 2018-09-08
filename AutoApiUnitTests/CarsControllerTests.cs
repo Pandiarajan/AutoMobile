@@ -4,6 +4,7 @@ using AutoMapper;
 using AutoRepository;
 using CarDataContract;
 using System;
+using System.Linq;
 using Xunit;
 
 namespace AutoApiUnitTests
@@ -14,18 +15,27 @@ namespace AutoApiUnitTests
 
         public CarsControllerTests()
         {           
-            carsController = new CarsController(new CarRepository(TestHelper.GetMapper()));
+            carsController = new CarsController(new CarRepository(Config.GetMapper()));
         }
 
         [Fact]
         public void Post_ShouldCreateACar_AndReturn_GivenValidContract()
         {
-            var contract = new CarContract { Title = "BMW Car", FirstRegistration = new DateTime(2018, 05, 05) };
+            var contract = TestHelper.GetContract();
             var result = carsController.Post(contract).GetCar();
             
-            Assert.Equal(1, result.Id);
+            Assert.True(result.Id > 0);
             Assert.Same(contract.Title, result.Title);
             Assert.Equal(contract.FirstRegistration, result.FirstRegistration);
+        }
+
+        [Fact]
+        public void Get_ShouldGive_Cars()
+        {
+            carsController.Post(TestHelper.GetContract());
+
+            var getResult = carsController.Get().GetCars();
+            Assert.True(getResult.Any());
         }
     }
 }
