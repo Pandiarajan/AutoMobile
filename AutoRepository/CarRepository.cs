@@ -9,9 +9,16 @@ namespace AutoRepository
         List<Car> cars = new List<Car>();
         static volatile int id = 0;
         object _lockObject_ = new object();
+        private readonly IMapper mapper;
+
+        public CarRepository(IMapper mapper)
+        {
+            this.mapper = mapper;
+        }
+
         public Car Add(CarContract carContract)
         {
-            var car = Mapper.Map<Car>(carContract);
+            var car = mapper.Map<Car>(carContract);
             car.Id = GetNextNumber();
             cars.Add(car);
             return car;

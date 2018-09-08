@@ -13,9 +13,8 @@ namespace AutoApiUnitTests
         ICarsController carsController;
 
         public CarsControllerTests()
-        {
-            Mapper.Initialize(config => config.AddProfile(new MappingProfile()));
-            carsController = new CarsController(new CarRepository());
+        {           
+            carsController = new CarsController(new CarRepository(TestHelper.GetMapper()));
         }
 
         [Fact]
