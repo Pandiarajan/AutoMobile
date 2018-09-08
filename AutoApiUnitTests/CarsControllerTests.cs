@@ -1,7 +1,9 @@
+using AutoApi.Config;
 using AutoApi.Controllers;
-using AutoApi.Model;
+using AutoMapper;
+using AutoRepository;
+using CarDataContract;
 using System;
-using System.Linq;
 using Xunit;
 
 namespace AutoApiUnitTests
@@ -12,18 +14,19 @@ namespace AutoApiUnitTests
 
         public CarsControllerTests()
         {
-            carsController = new CarsController();
+            Mapper.Initialize(config => config.AddProfile(new MappingProfile()));
+            carsController = new CarsController(new CarRepository());
         }
 
         [Fact]
         public void Post_ShouldCreateACar_AndReturn_GivenValidContract()
         {
             var contract = new CarContract { Title = "BMW Car", FirstRegistration = new DateTime(2018, 05, 05) };
-            var result = carsController.Post(contract);
-
-            Assert.True(result.Value.Id > 0);
-            Assert.Same(result.Value.Title, contract.Title);
-            Assert.Equal(result.Value.FirstRegistration, contract.FirstRegistration);
-        }        
+            var result = carsController.Post(contract).GetCar();
+            
+            Assert.Equal(1, result.Id);
+            Assert.Same(contract.Title, result.Title);
+            Assert.Equal(contract.FirstRegistration, result.FirstRegistration);
+        }
     }
 }

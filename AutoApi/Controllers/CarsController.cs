@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using AutoApi.Model;
+using AutoRepository;
+using CarDataContract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AutoApi.Controllers
@@ -8,6 +9,12 @@ namespace AutoApi.Controllers
     [ApiController]
     public class CarsController : ControllerBase, ICarsController
     {
+        private readonly ICarRepository carRepository;
+
+        public CarsController(ICarRepository carRepository)
+        {
+            this.carRepository = carRepository;
+        }
         [HttpGet]
         public ActionResult<IEnumerable<Car>> Get()
         {
@@ -22,7 +29,7 @@ namespace AutoApi.Controllers
         [HttpPost]
         public ActionResult<Car> Post([FromBody] CarContract car)
         {
-            throw new System.NotImplementedException();
+            return Ok(carRepository.Add(car));
         }
         [HttpDelete("{id}")]
         public void Delete(int carId)

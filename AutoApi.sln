@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoApi", "AutoApi\AutoApi.csproj", "{9A5BE711-9EDB-4597-AC3D-9CA58B114FCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoApi", "AutoApi\AutoApi.csproj", "{9A5BE711-9EDB-4597-AC3D-9CA58B114FCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoApiIntegrationTest", "AutoApiIntegrationTest\AutoApiIntegrationTest.csproj", "{1C9C5998-804D-42E1-861D-48F115F44B3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoApiIntegrationTest", "AutoApiIntegrationTest\AutoApiIntegrationTest.csproj", "{1C9C5998-804D-42E1-861D-48F115F44B3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoApiUnitTests", "AutoApiUnitTests\AutoApiUnitTests.csproj", "{C473F36C-DB26-4984-9E0F-A9E15E6C5A7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoApiUnitTests", "AutoApiUnitTests\AutoApiUnitTests.csproj", "{C473F36C-DB26-4984-9E0F-A9E15E6C5A7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoRepository", "AutoRepository\AutoRepository.csproj", "{1CC29D91-62ED-4662-9D10-0D5A95D7BAD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDataContract", "CarDataContract\CarDataContract.csproj", "{C95D3045-8820-46D1-84AE-7BE9E65337F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{C473F36C-DB26-4984-9E0F-A9E15E6C5A7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C473F36C-DB26-4984-9E0F-A9E15E6C5A7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C473F36C-DB26-4984-9E0F-A9E15E6C5A7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CC29D91-62ED-4662-9D10-0D5A95D7BAD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CC29D91-62ED-4662-9D10-0D5A95D7BAD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CC29D91-62ED-4662-9D10-0D5A95D7BAD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CC29D91-62ED-4662-9D10-0D5A95D7BAD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C95D3045-8820-46D1-84AE-7BE9E65337F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C95D3045-8820-46D1-84AE-7BE9E65337F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C95D3045-8820-46D1-84AE-7BE9E65337F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C95D3045-8820-46D1-84AE-7BE9E65337F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

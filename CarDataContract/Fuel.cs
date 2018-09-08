@@ -1,4 +1,4 @@
-﻿namespace AutoApi.Model
+﻿namespace CarDataContract
 {
     public enum Fuel
     {

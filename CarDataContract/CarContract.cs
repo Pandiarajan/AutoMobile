@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AutoApi.Model
+namespace CarDataContract
 {
     public class CarContract
     {

@@ -1,4 +1,4 @@
-﻿using AutoApi.Model;
+﻿using CarDataContract;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
