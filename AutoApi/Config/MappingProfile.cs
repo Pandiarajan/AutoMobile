@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoRepository;
 using CarDataContract;
 
 namespace AutoApi.Config
@@ -6,8 +7,9 @@ namespace AutoApi.Config
     public class MappingProfile : Profile
     {
         public MappingProfile()
-        {
-            CreateMap<CarContract, Car>();
+        {            
+            CreateMap<CarContract, CarEntity>();
+            CreateMap<CarEntity, Car>();
         }
     }
 }

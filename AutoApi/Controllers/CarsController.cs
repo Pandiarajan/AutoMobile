@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AutoRepository;
 using CarDataContract;
 using Microsoft.AspNetCore.Mvc;
@@ -33,9 +32,12 @@ namespace AutoApi.Controllers
             return Ok(carRepository.Add(car));
         }
         [HttpDelete("{id}")]
-        public void Delete(int carId)
+        public ActionResult Delete(int carId)
         {
-            throw new System.NotImplementedException();
+            if (carRepository.Delete(carId))
+                return Ok();
+            else
+                return NotFound();
         }
     }
 }

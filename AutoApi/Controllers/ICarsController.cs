@@ -9,6 +9,6 @@ namespace AutoApi.Controllers
         ActionResult<IEnumerable<Car>> Get();
         ActionResult<Car> Get(int id);
         ActionResult<Car> Post(CarContract car);
-        void Delete(int carId);
+        ActionResult Delete(int carId);
     }
 }

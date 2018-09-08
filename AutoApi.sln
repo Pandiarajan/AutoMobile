@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoApiIntegrationTest", "A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoApiUnitTests", "AutoApiUnitTests\AutoApiUnitTests.csproj", "{C473F36C-DB26-4984-9E0F-A9E15E6C5A7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoRepository", "AutoRepository\AutoRepository.csproj", "{1CC29D91-62ED-4662-9D10-0D5A95D7BAD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoRepository", "AutoRepository\AutoRepository.csproj", "{1CC29D91-62ED-4662-9D10-0D5A95D7BAD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDataContract", "CarDataContract\CarDataContract.csproj", "{C95D3045-8820-46D1-84AE-7BE9E65337F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDataContract", "CarDataContract\CarDataContract.csproj", "{C95D3045-8820-46D1-84AE-7BE9E65337F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{141267FB-E898-4BBA-84A5-FA6645E0709E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1C9C5998-804D-42E1-861D-48F115F44B3B} = {141267FB-E898-4BBA-84A5-FA6645E0709E}
+		{C473F36C-DB26-4984-9E0F-A9E15E6C5A7C} = {141267FB-E898-4BBA-84A5-FA6645E0709E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3E30DE6A-CB31-4CBD-848F-2823D2A1E5B9}

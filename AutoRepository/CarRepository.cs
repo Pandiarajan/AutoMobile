@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using CarDataContract;
 
@@ -6,7 +7,7 @@ namespace AutoRepository
 {
     public class CarRepository : ICarRepository
     {
-        List<Car> cars = new List<Car>();
+        List<CarEntity> cars = new List<CarEntity>();
         static volatile int id = 0;
         object _lockObject_ = new object();
         private readonly IMapper mapper;
@@ -18,15 +19,21 @@ namespace AutoRepository
 
         public Car Add(CarContract carContract)
         {
-            var car = mapper.Map<Car>(carContract);
+            var car = mapper.Map<CarEntity>(carContract);
             car.Id = GetNextNumber();
             cars.Add(car);
-            return car;
+            return mapper.Map<Car>(car);
         }
 
         public bool Delete(int carId)
         {
-            throw new System.NotImplementedException();
+            var car = cars.FirstOrDefault(c => c.Id == carId && !c.IsDeleted);
+            if (car != null)
+            {
+                car.IsDeleted = true;
+                return true;
+            }
+            return false;
         }
 
         public Car GetCarById(int carId)
@@ -36,7 +43,11 @@ namespace AutoRepository
 
         public IEnumerable<Car> GetCars()
         {
-            return cars;
+            foreach (var carEntity in cars)
+            {
+                if (!carEntity.IsDeleted)
+                    yield return mapper.Map<Car>(carEntity);
+            }            
         }
 
         private int GetNextNumber()
