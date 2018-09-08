@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoApi", "AutoApi\AutoApi.csproj", "{9A5BE711-9EDB-4597-AC3D-9CA58B114FCF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoApiIntegrationTest", "AutoApiIntegrationTest\AutoApiIntegrationTest.csproj", "{1C9C5998-804D-42E1-861D-48F115F44B3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoApiUnitTests", "AutoApiUnitTests\AutoApiUnitTests.csproj", "{C473F36C-DB26-4984-9E0F-A9E15E6C5A7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{9A5BE711-9EDB-4597-AC3D-9CA58B114FCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A5BE711-9EDB-4597-AC3D-9CA58B114FCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A5BE711-9EDB-4597-AC3D-9CA58B114FCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C9C5998-804D-42E1-861D-48F115F44B3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C9C5998-804D-42E1-861D-48F115F44B3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C9C5998-804D-42E1-861D-48F115F44B3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C9C5998-804D-42E1-861D-48F115F44B3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C473F36C-DB26-4984-9E0F-A9E15E6C5A7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C473F36C-DB26-4984-9E0F-A9E15E6C5A7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C473F36C-DB26-4984-9E0F-A9E15E6C5A7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C473F36C-DB26-4984-9E0F-A9E15E6C5A7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
