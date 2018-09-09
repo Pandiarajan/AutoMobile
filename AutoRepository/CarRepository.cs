@@ -7,7 +7,7 @@ namespace AutoRepository
 {
     public class CarRepository : ICarRepository
     {
-        List<CarEntity> cars = new List<CarEntity>();
+        static List<CarEntity> cars = new List<CarEntity>();
         static volatile int id;
         object _lockObject_ = new object();
         private readonly IMapper mapper;
@@ -17,8 +17,11 @@ namespace AutoRepository
         {
             this.mapper = mapper;
             this.dataStore = dataStore;
-            cars.AddRange(dataStore.Get());
-            id = cars.Count;
+            if (!cars.Any())
+            {
+                cars.AddRange(dataStore.Get());
+                id = cars.Count;
+            }
         }
 
         public Car Add(CarContract carContract)

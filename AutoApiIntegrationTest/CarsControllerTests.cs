@@ -2,6 +2,7 @@ using CarDataContract;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using Xunit;
@@ -61,6 +62,41 @@ namespace AutoApiIntegrationTest
             var stringResult = await httpResult.Content.ReadAsStringAsync();
             var car = JsonConvert.DeserializeObject<Car>(stringResult);
             Assert.True(car.Id > 0);
+        }
+
+        [Fact]
+        public async void Put_Should_Update_WhenACarPresent()
+        {
+            var json = JsonConvert.SerializeObject(new CarContract { Title = "My Car", FirstRegistration = new DateTime(2018, 02, 01), Fuel = Fuel.Diesel, IsNew = false, Mileage = 80, Price = 17000 });
+            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var httpResult = await _httpClient.PostAsync("http://localhost:54696/api/Cars/", stringContent);
+            var stringResult = await httpResult.Content.ReadAsStringAsync();
+            var car = JsonConvert.DeserializeObject<Car>(stringResult);
+
+            string newTitle = "My New Title";
+            int newPrice = 18200;
+            car.Title = newTitle;
+            car.Price = newPrice;
+            json = JsonConvert.SerializeObject(car);
+            stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+            httpResult = await _httpClient.PutAsync("http://localhost:54696/api/Cars/" + car.Id, stringContent);
+            httpResult.EnsureSuccessStatusCode();
+
+            httpResult = await _httpClient.GetAsync("http://localhost:54696/api/Cars/" + car.Id);
+            stringResult = await httpResult.Content.ReadAsStringAsync();
+            car = JsonConvert.DeserializeObject<Car>(stringResult);
+            Assert.Equal(car.Title, newTitle);
+            Assert.Equal(car.Price, newPrice);
+        }
+
+        [Fact]
+        public async void Put_ReturnsNotFound_WhenACarNotPresent()
+        {
+            var json = JsonConvert.SerializeObject(new Car { Id=1000, Title = "My Car", FirstRegistration = new DateTime(2018, 02, 01), Fuel = Fuel.Diesel, IsNew = false, Mileage = 80, Price = 17000 });
+            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var httpResult = await _httpClient.PutAsync("http://localhost:54696/api/Cars/" + 1000, stringContent);
+
+            Assert.Equal(HttpStatusCode.NotFound, httpResult.StatusCode);
         }
 
         [Fact]
