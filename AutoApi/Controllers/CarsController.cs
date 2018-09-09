@@ -39,13 +39,13 @@ namespace AutoApi.Controllers
         [HttpPost]
         public ActionResult<Car> Post([FromBody] CarContract car)
         {
-            return Ok(carRepository.Add(car));
+            return Ok(carRepository.Add(car, GetEmail()));
         }
 
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            if (carRepository.Delete(id))
+            if (carRepository.Delete(id, GetEmail()))
                 return Ok();
             else
                 return NotFound();
@@ -54,13 +54,21 @@ namespace AutoApi.Controllers
         [HttpPut]
         public ActionResult Put(Car car)
         {
-            if (carRepository.Exists(car.Id))
+            
+            if (carRepository.Exists(car.Id, GetEmail()))
             {                                
                 carRepository.Update(car);
                 return Ok();
             }
             else
                 return NotFound();
+        }
+
+        private string GetEmail()
+        {
+            //Authentication is not implemented to take the email id. Right now, this returns null.
+            //var userEmail = User.Claims.SingleOrDefault(c => c.Type == ClaimTypes.Email);
+            return null;
         }
     }
 }

@@ -11,5 +11,8 @@ namespace CarDataContract
         public bool IsNew { get; set; }
         public int Mileage { get; set; }
         public DateTime FirstRegistration { get; set; }
+        public DateTime CreatedDateTime { get; set; }
+        public DateTime LastUpdatedDateTime { get; set; }
+        public string CreatedByEmail { get; set; }
     }
 }
