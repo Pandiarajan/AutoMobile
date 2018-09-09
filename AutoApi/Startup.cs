@@ -47,10 +47,15 @@ namespace AutoApi
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseMiddleware<RequestLogMiddleware>();
-            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseMiddleware<ExceptionMiddleware>();
+            }
+            else
+            {
+                app.UseMiddleware<ExceptionMiddleware>();
+                app.UseExceptionHandler();
             }
 
             app.UseMvc(                
