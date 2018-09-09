@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using CarDataContract;
@@ -19,7 +18,7 @@ namespace AutoRepository
             this.mapper = mapper;
             this.dataStore = dataStore;
             cars.AddRange(dataStore.Get());
-            id = 3;
+            id = cars.Count;
         }
 
         public Car Add(CarContract carContract)

@@ -9,7 +9,7 @@ using FluentValidation.AspNetCore;
 using System.Reflection;
 using CarDataContractValidator;
 using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json;
+using Microsoft.AspNet.OData.Extensions;
 
 namespace AutoApi
 {
@@ -32,7 +32,8 @@ namespace AutoApi
             services
                 .AddDependencies()
                 .AddAutoMapper()
-                .ConfigureCors();
+                .ConfigureCors()
+                .AddOData();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +44,13 @@ namespace AutoApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseMvc(
+                
+            rbuilder =>
+            {
+                rbuilder.Select().Expand().Filter().OrderBy().MaxTop(50).Count();
+                rbuilder.MapODataServiceRoute("api/odata", "api/odata", ODataConfig.GetEdmModel());
+            });
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using AutoApi.Controllers;
-using AutoMapper;
 using AutoRepository;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +13,7 @@ namespace AutoApi.Config
             services.AddScoped<IDataStore, InMemoryDataStore>();
             return services;
         }
-        public static void ConfigureCors(this IServiceCollection services)
+        public static IServiceCollection ConfigureCors(this IServiceCollection services)
         {
             services.AddCors(options =>
             {
@@ -24,6 +23,7 @@ namespace AutoApi.Config
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
+            return services;
         }
     }
 }

@@ -1,7 +1,6 @@
 using CarDataContract;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -20,11 +19,25 @@ namespace AutoApiIntegrationTest
         [Fact]
         public async void Get_Should_ReturnAllCars()
         {
-            var httpResult = await _httpClient.GetAsync("http://localhost:54696/api/Cars");
+            var httpResult = await _httpClient.GetAsync("http://localhost:54696/api/odata/Cars");
             httpResult.EnsureSuccessStatusCode();
             var stringResult = await httpResult.Content.ReadAsStringAsync();
-            var cars = JsonConvert.DeserializeObject<IEnumerable<Car>>(stringResult);
+            var cars = JsonConvert.DeserializeObject<ODataResponse<Car>>(stringResult).Value;
             Assert.True(cars.Any());
+        }
+
+        [Fact]
+        public async void Get_Should_ReturnAllCars_OrderByPrice_FilterByPrice20000_Skip1_TakeTop5_WithCount()
+        {
+            var httpResult = await _httpClient.GetAsync("http://localhost:54696/api/odata/Cars?$orderby=Price&$filter=Price le 20000&$skip=1&$top=5&$count=true");
+            httpResult.EnsureSuccessStatusCode();
+            var stringResult = await httpResult.Content.ReadAsStringAsync();
+            var carsResponse = JsonConvert.DeserializeObject<ODataResponse<Car>>(stringResult);
+            var cars = carsResponse.Value;
+            
+            Assert.True(cars.All(c => c.Price <= 20000));
+            Assert.True(cars.Count() <=5);
+            Assert.True(carsResponse.Count > cars.Count); //Because we skip 1
         }
 
         [Fact]

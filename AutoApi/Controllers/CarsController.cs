@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using AutoRepository;
 using CarDataContract;
+using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AutoApi.Controllers
@@ -16,7 +17,7 @@ namespace AutoApi.Controllers
             this.carRepository = carRepository;
         }
 
-        [HttpGet]
+        [HttpGet, EnableQuery]
         public ActionResult<IQueryable<Car>> Get()
         {
             return Ok(carRepository.GetCars());
