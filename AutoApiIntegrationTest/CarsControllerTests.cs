@@ -21,35 +21,25 @@ namespace AutoApiIntegrationTest
         [Fact]
         public async void Get_Should_ReturnAllCars()
         {
-            var httpResult = await _httpClient.GetAsync("/api/odata/Cars");
-            httpResult.EnsureSuccessStatusCode();
-            var stringResult = await httpResult.Content.ReadAsStringAsync();
-            var cars = JsonConvert.DeserializeObject<ODataResponse<Car>>(stringResult).Value;
-            Assert.True(cars.Any());
+            var cars = await _httpClient.GetAsync("/api/odata/Cars").GetOdataResponse();            
+            Assert.True(cars.Value.Any());
         }
 
         [Fact]
         public async void Get_Should_ReturnAllCars_OrderByPrice_FilterByPrice20000_Skip1_TakeTop5_WithCount()
         {
-            var httpResult = await _httpClient.GetAsync("/api/odata/Cars?$orderby=Price&$filter=Price le 20000&$skip=1&$top=5&$count=true");
-            httpResult.EnsureSuccessStatusCode();
-            var stringResult = await httpResult.Content.ReadAsStringAsync();
-            var carsResponse = JsonConvert.DeserializeObject<ODataResponse<Car>>(stringResult);
-            var cars = carsResponse.Value;
+            var carsResponse = await _httpClient.GetAsync("/api/odata/Cars?$orderby=Price&$filter=Price le 20000&$skip=1&$top=5&$count=true").GetOdataResponse();
             
-            Assert.True(cars.All(c => c.Price <= 20000));
-            Assert.True(cars.Count() <=5);
-            Assert.True(carsResponse.Count > cars.Count); //Because we skip 1
+            Assert.True(carsResponse.Value.All(c => c.Price <= 20000));
+            Assert.True(carsResponse.Value.Count() <=5);
+            Assert.True(carsResponse.Count > carsResponse.Value.Count); //Because we skip 1
         }
 
         [Fact]
         public async void Get_Should_ReturnACarWhenPresent()
         {
             int carId = 1;
-            var httpResult = await _httpClient.GetAsync("/api/Cars/" + carId);
-            httpResult.EnsureSuccessStatusCode();
-            var stringResult = await httpResult.Content.ReadAsStringAsync();
-            var car = JsonConvert.DeserializeObject<Car>(stringResult);
+            var car = await _httpClient.GetAsync("/api/Cars/" + carId).GetResponse();
             Assert.Equal(car.Id, carId);
         }
 
@@ -58,45 +48,34 @@ namespace AutoApiIntegrationTest
         {
             var json = JsonConvert.SerializeObject(new CarContract { Title = "My Car", FirstRegistration = new DateTime(2018, 02, 01), Fuel = Fuel.Diesel, IsNew = false, Mileage = 80, Price = 17000 });
             var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-            var httpResult = await _httpClient.PostAsync("/api/Cars/", stringContent);
-            httpResult.EnsureSuccessStatusCode();
-            var stringResult = await httpResult.Content.ReadAsStringAsync();
-            var car = JsonConvert.DeserializeObject<Car>(stringResult);
+            var car = await _httpClient.PostAsync("/api/Cars/", stringContent).GetResponse();
             Assert.True(car.Id > 0);
         }
 
         [Fact]
         public async void Put_Should_Update_WhenACarPresent()
         {
-            var json = JsonConvert.SerializeObject(new CarContract { Title = "My Car", FirstRegistration = new DateTime(2018, 02, 01), Fuel = Fuel.Diesel, IsNew = false, Mileage = 80, Price = 17000 });
-            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-            var httpResult = await _httpClient.PostAsync("/api/Cars/", stringContent);
-            var stringResult = await httpResult.Content.ReadAsStringAsync();
-            var car = JsonConvert.DeserializeObject<Car>(stringResult);
+            var stringContent = TestHelper.GetContract();
+            var car = await _httpClient.PostAsync("/api/Cars/", stringContent).GetResponse();
 
             string newTitle = "My New Title";
             int newPrice = 18200;
             car.Title = newTitle;
             car.Price = newPrice;
-            json = JsonConvert.SerializeObject(car);
+            var json = JsonConvert.SerializeObject(car);
             stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-            httpResult = await _httpClient.PutAsync("/api/Cars/" + car.Id, stringContent);
+            var httpResult = await _httpClient.PutAsync("/api/Cars/" + car.Id, stringContent);
             httpResult.EnsureSuccessStatusCode();
 
-            httpResult = await _httpClient.GetAsync("/api/Cars/" + car.Id);
-            stringResult = await httpResult.Content.ReadAsStringAsync();
-            car = JsonConvert.DeserializeObject<Car>(stringResult);
+            car = await _httpClient.GetAsync("/api/Cars/" + car.Id).GetResponse();
             Assert.Equal(car.Title, newTitle);
             Assert.Equal(car.Price, newPrice);
         }
 
         [Fact]
         public async void Put_ReturnsNotFound_WhenACarNotPresent()
-        {
-            var json = JsonConvert.SerializeObject(new Car { Id=1000, Title = "My Car", FirstRegistration = new DateTime(2018, 02, 01), Fuel = Fuel.Diesel, IsNew = false, Mileage = 80, Price = 17000 });
-            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-            var httpResult = await _httpClient.PutAsync("/api/Cars/" + 1000, stringContent);
-
+        {            
+            var httpResult = await _httpClient.PutAsync("/api/Cars/" + 1000, TestHelper.GetCar());
             Assert.Equal(HttpStatusCode.NotFound, httpResult.StatusCode);
         }
 

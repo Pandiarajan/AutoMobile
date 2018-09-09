@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AutoApiIntegrationTest
 {
-    internal class ODataResponse<T>
+    public class ODataResponse<T>
     {
         [JsonProperty("@odata.count")]
         public int Count { get; set; }
