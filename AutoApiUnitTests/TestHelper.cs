@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace AutoApiUnitTests
@@ -14,10 +15,10 @@ namespace AutoApiUnitTests
             return (Car)okResult.Value;
         }
 
-        public static IEnumerable<Car> GetCars(this ActionResult<IEnumerable<Car>> actionResultCar)
+        public static IQueryable<Car> GetCars(this ActionResult<IQueryable<Car>> actionResultCar)
         {
             var okResult = Assert.IsType<OkObjectResult>(actionResultCar.Result);
-            return (IEnumerable<Car>)okResult.Value;
+            return (IQueryable<Car>)okResult.Value;
         }
 
         public static CarContract GetOldCarContract()

@@ -25,14 +25,14 @@ namespace AutoApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper()
-            .AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-            .AddFluentValidation(f=> f.RegisterValidatorsFromAssembly(Assembly.GetAssembly(typeof(DataContractValidator))))
-            .AddJsonOptions(opt =>
-            {
-                opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            }); 
-            services.AddDependencies();
+            services
+                .AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddFluentValidation(f=> f.RegisterValidatorsFromAssembly(Assembly.GetAssembly(typeof(DataContractValidator))))
+                .AddJsonOptions(opt => opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
+            services
+                .AddDependencies()
+                .AddAutoMapper()
+                .ConfigureCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

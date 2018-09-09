@@ -1,5 +1,5 @@
 ﻿using CarDataContract;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace AutoRepository
 {
@@ -7,7 +7,7 @@ namespace AutoRepository
     {
         Car Add(CarContract car);
         Car GetCarById(int carId);
-        IEnumerable<Car> GetCars();
+        IQueryable<Car> GetCars();
         bool Delete(int carId);
     }
 }

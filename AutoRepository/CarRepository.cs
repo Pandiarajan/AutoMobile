@@ -51,13 +51,19 @@ namespace AutoRepository
             return null;
         }
 
-        public IEnumerable<Car> GetCars()
+        public IQueryable<Car> GetCars()
+        {
+            return GetActiveCars().AsQueryable();
+                        
+        }
+
+        private IEnumerable<Car> GetActiveCars()
         {
             foreach (var carEntity in cars)
             {
                 if (!carEntity.IsDeleted)
                     yield return mapper.Map<Car>(carEntity);
-            }            
+            }
         }
 
         private int GetNextNumber()

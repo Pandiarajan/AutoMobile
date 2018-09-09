@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using AutoRepository;
 using CarDataContract;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +17,7 @@ namespace AutoApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Car>> Get()
+        public ActionResult<IQueryable<Car>> Get()
         {
             return Ok(carRepository.GetCars());
         }

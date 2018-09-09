@@ -14,5 +14,16 @@ namespace AutoApi.Config
             services.AddScoped<IDataStore, InMemoryDataStore>();
             return services;
         }
+        public static void ConfigureCors(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+        }
     }
 }
