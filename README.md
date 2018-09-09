@@ -68,6 +68,7 @@ For any developer, **ICarsController** interface is a starting point.
 * **Serilog** is used to log all the requests and it's duration, see _**RequestLogMiddleware**_.
 * Global exception handler is a middleware handles all the exceptions, see _**ExceptionMiddleware**_. 
 * A log file will be created at **AutoMobile\AutoApi\log-YYYYMMDD.txt**
+* _Get_Should_ReturnAllCars_OrderByPrice_FilterByPrice20000_Skip1_TakeTop5_WithCount_ see this test for sample OData functionality, which includes sorting, filtering, paging (skip).
 
 ### Technology Choices
 * **OData** for sorting, pagination, filter. Pagination and filter are also very important as the number of records will grow very high.
