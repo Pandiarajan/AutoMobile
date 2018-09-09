@@ -6,35 +6,26 @@ using CarDataContract;
 namespace AutoRepository
 {
     public class CarRepository : ICarRepository
-    {
-        static List<CarEntity> cars = new List<CarEntity>();
-        static volatile int id;
-        object _lockObject_ = new object();
+    {       
         private readonly IMapper mapper;
         private readonly IDataStore dataStore;
 
         public CarRepository(IMapper mapper, IDataStore dataStore)
         {
             this.mapper = mapper;
-            this.dataStore = dataStore;
-            if (!cars.Any())
-            {
-                cars.AddRange(dataStore.Get());
-                id = cars.Count;
-            }
+            this.dataStore = dataStore;            
         }
 
         public Car Add(CarContract carContract)
         {
             var car = mapper.Map<CarEntity>(carContract);
-            car.Id = GetNextNumber();
-            cars.Add(car);
+            dataStore.Add(car);
             return mapper.Map<Car>(car);
         }
 
         public bool Delete(int carId)
         {
-            var car = cars.FirstOrDefault(c => c.Id == carId && !c.IsDeleted);
+            var car = dataStore.FirstOrDefault(c => c.Id == carId && !c.IsDeleted);
             if (car != null)
             {
                 car.IsDeleted = true;
@@ -45,7 +36,7 @@ namespace AutoRepository
 
         public Car GetCarById(int carId)
         {
-            var car = cars.FirstOrDefault(c => c.Id == carId && !c.IsDeleted);
+            var car = dataStore.FirstOrDefault(c => c.Id == carId && !c.IsDeleted);
             if (car != null)
             {
                 return mapper.Map<Car>(car);
@@ -61,31 +52,21 @@ namespace AutoRepository
 
         private IEnumerable<Car> GetActiveCars()
         {
-            foreach (var carEntity in cars)
+            foreach (var carEntity in dataStore.Cars)
             {
                 if (!carEntity.IsDeleted)
                     yield return mapper.Map<Car>(carEntity);
             }
-        }
-
-        private int GetNextNumber()
-        {
-            lock (_lockObject_)
-            {
-                return ++id;
-            }
-        }
+        }        
 
         public void Update(Car car)
         {
-            int index = cars.IndexOf(cars.Single(c => c.Id == car.Id));
-            cars.RemoveAt(index);
-            cars.Insert(index, mapper.Map<CarEntity>(car));
+            dataStore.Update(mapper.Map<CarEntity>(car));
         }
 
         public bool Exists(int carId)
         {
-            return cars.Exists(c => !c.IsDeleted && c.Id == carId);
+            return dataStore.Exists(c => !c.IsDeleted && c.Id == carId);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace AutoApi.Config
         {
             return services.AddScoped<ICarsController, CarsController>()
                 .AddScoped<ICarRepository, CarRepository>()
-                .AddScoped<IDataStore, InMemoryDataStore>();
+                .AddSingleton<IDataStore, InMemoryDataStore>();
         }
 
         public static IServiceCollection ConfigureCors(this IServiceCollection services)
