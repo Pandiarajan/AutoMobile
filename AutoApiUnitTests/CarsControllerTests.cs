@@ -36,7 +36,6 @@ namespace AutoApiUnitTests
             var car = carsController.Post(contract).GetCar();
             string newTitle = "New Title";
             int newPrice = 56789;
-
             car.Title = newTitle;
             car.Price = newPrice;
 
@@ -55,7 +54,9 @@ namespace AutoApiUnitTests
             var car = mapper.Map<Car>(contract);
             int invalidCarId = 10000;
             car.Id = invalidCarId;
+
             var result = carsController.Put(car);
+
             Assert.IsType<NotFoundResult>(result);
         }
 
@@ -65,6 +66,7 @@ namespace AutoApiUnitTests
             carsController.Post(TestHelper.GetUsedCarContract());
 
             var getResult = carsController.Get().GetCars();
+
             Assert.True(getResult.Any());
         }
 
@@ -101,6 +103,7 @@ namespace AutoApiUnitTests
         public void Delete_ShouldReturnNotFound_WhenCarNotPresent()
         {
             int carIdNotInSystem = 10000;
+
             var deleteResult = carsController.Delete(carIdNotInSystem);
 
             Assert.IsType<NotFoundResult>(deleteResult);
@@ -134,6 +137,7 @@ namespace AutoApiUnitTests
         public void GetCarById_ShouldReturnNotFound_WhichIsNotPresent()
         {
             var carResult = carsController.Get(10000);
+
             Assert.IsType<NotFoundResult>(carResult.Result);
         }
     }

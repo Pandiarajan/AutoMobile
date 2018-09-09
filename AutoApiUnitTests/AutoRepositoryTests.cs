@@ -22,7 +22,9 @@ namespace AutoApiUnitTests
         public void CreatedDateTime_LastUpdatedDateTime_CreatedByEmail_MustBeUpdated_WhenAnewCarIsAdded()
         {
             string email = "test@gmail.com";
+
             var car = carRepository.Add(TestHelper.GetUsedCarContract(), email);
+
             Assert.Equal(email, car.CreatedByEmail);
             Assert.True(car.CreatedDateTime > DateTime.MinValue && car.CreatedDateTime < DateTime.Now);
             Assert.Equal(car.CreatedDateTime, car.LastUpdatedDateTime);
@@ -32,7 +34,8 @@ namespace AutoApiUnitTests
         public void Delete_ShouldMarkAsDeleted_AndUpdatesLastModifiedDateTime()
         {
             string email = "test@gmail.com";
-            var car = carRepository.Add(TestHelper.GetUsedCarContract(), email);            
+            var car = carRepository.Add(TestHelper.GetUsedCarContract(), email);  
+            
             var result = carRepository.Delete(car.Id, email);
             
             Assert.True(result);
@@ -47,6 +50,7 @@ namespace AutoApiUnitTests
             var car = carRepository.Add(TestHelper.GetUsedCarContract(), "test@gmail.com");
             int price = 67890;
             car.Price = price;
+
             carRepository.Update(car);
 
             var updatedCar = dataStore.Cars.Single(c => c.Id == car.Id);
@@ -60,7 +64,9 @@ namespace AutoApiUnitTests
             string email = "test@gmail.com";
             var car = carRepository.Add(TestHelper.GetUsedCarContract(), email);
             var totalCars = carRepository.GetCars().Count();
+
             carRepository.Delete(car.Id, email);
+
             var totalCarsAfterDelete = carRepository.GetCars().Count();
             Assert.Equal(totalCars-1, totalCarsAfterDelete);
         }
@@ -72,7 +78,9 @@ namespace AutoApiUnitTests
             var car = carRepository.Add(TestHelper.GetUsedCarContract(), email);
             var totalCars = carRepository.GetCars().Count();
             carRepository.Delete(car.Id, email);
+
             var deletedCar = carRepository.GetCarById(car.Id);
+
             Assert.Null(deletedCar);
         }
     }
