@@ -10,5 +10,6 @@ namespace AutoRepository
         IQueryable<Car> GetCars();
         bool Delete(int carId);
         void Update(Car car);
+        bool Exists(int carId);
     }
 }

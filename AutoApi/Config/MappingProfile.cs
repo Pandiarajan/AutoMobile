@@ -11,7 +11,6 @@ namespace AutoApi.Config
             CreateMap<CarContract, CarEntity>();
             CreateMap<CarEntity, Car>();
             CreateMap<Car, CarEntity>();
-            CreateMap<CarContract, Car>();
         }
     }
 }

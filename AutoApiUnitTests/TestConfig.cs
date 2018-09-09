@@ -9,6 +9,7 @@ namespace AutoApiUnitTests
         {
             var config = new MapperConfiguration(cfg => {
                 cfg.AddProfile<MappingProfile>();
+                cfg.AddProfile<TestMappingProfile>();
             });
             return new Mapper(config);
         }

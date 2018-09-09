@@ -52,14 +52,11 @@ namespace AutoApi.Controllers
         }        
 
         [HttpPut("{id}")]
-        public ActionResult Put(int id, CarContract carContract)
+        public ActionResult Put(int id, Car car)
         {
-            var car = carRepository.GetCarById(id);
-            if (car != null)
-            {                
-                var updatedCar = mapper.Map<Car>(carContract);
-                updatedCar.Id = id;
-                carRepository.Update(updatedCar);
+            if (carRepository.Exists(id))
+            {                                
+                carRepository.Update(car);
                 return Ok();
             }
             else

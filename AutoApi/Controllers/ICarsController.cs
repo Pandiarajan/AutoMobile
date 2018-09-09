@@ -10,6 +10,6 @@ namespace AutoApi.Controllers
         ActionResult<Car> Get(int id);
         ActionResult<Car> Post(CarContract car);
         ActionResult Delete(int id);
-        ActionResult Put(int id, CarContract carDelta);
+        ActionResult Put(int id, Car carDelta);
     }
 }

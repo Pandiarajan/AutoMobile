@@ -20,7 +20,7 @@ namespace AutoApiUnitTests
             return (IQueryable<Car>)okResult.Value;
         }
 
-        public static CarContract GetOldCarContract()
+        public static CarContract GetUsedCarContract()
         {
             Random r = new Random();
             return new CarContract { IsNew = false, Title = "BMW Car" + r.Next(1,1000), FirstRegistration = new DateTime(2018, r.Next(1,12) , r.Next(1,28)) };

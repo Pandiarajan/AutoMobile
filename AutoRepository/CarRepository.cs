@@ -79,5 +79,10 @@ namespace AutoRepository
             cars.RemoveAt(index);
             cars.Insert(index, mapper.Map<CarEntity>(car));
         }
+
+        public bool Exists(int carId)
+        {
+            return cars.Exists(c => !c.IsDeleted && c.Id == carId);
+        }
     }
 }
