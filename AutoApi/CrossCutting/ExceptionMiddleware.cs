@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AutoApi.CrossCutting
 {
+    /// <summary>
+    /// https://blogs.msdn.microsoft.com/brandonh/2017/07/31/using-middleware-to-trap-exceptions-in-asp-net-core/
+    /// </summary>
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
