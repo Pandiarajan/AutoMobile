@@ -9,6 +9,7 @@ namespace AutoApi.Controllers
         ActionResult<IQueryable<Car>> Get();
         ActionResult<Car> Get(int id);
         ActionResult<Car> Post(CarContract car);
-        ActionResult Delete(int carId);
+        ActionResult Delete(int id);
+        ActionResult Put(int id, CarContract carDelta);
     }
 }

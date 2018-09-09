@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AutoMapper;
 using AutoRepository;
 using CarDataContract;
 using Microsoft.AspNet.OData;
@@ -11,10 +12,12 @@ namespace AutoApi.Controllers
     public class CarsController : ControllerBase, ICarsController
     {
         private readonly ICarRepository carRepository;
+        private readonly IMapper mapper;
 
-        public CarsController(ICarRepository carRepository)
+        public CarsController(ICarRepository carRepository, IMapper mapper)
         {
             this.carRepository = carRepository;
+            this.mapper = mapper;
         }
 
         [HttpGet, EnableQuery]
@@ -44,6 +47,21 @@ namespace AutoApi.Controllers
         {
             if (carRepository.Delete(id))
                 return Ok();
+            else
+                return NotFound();
+        }        
+
+        [HttpPut("{id}")]
+        public ActionResult Put(int id, CarContract carContract)
+        {
+            var car = carRepository.GetCarById(id);
+            if (car != null)
+            {                
+                var updatedCar = mapper.Map<Car>(carContract);
+                updatedCar.Id = id;
+                carRepository.Update(updatedCar);
+                return Ok();
+            }
             else
                 return NotFound();
         }

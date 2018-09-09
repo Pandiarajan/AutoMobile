@@ -72,5 +72,12 @@ namespace AutoRepository
                 return ++id;
             }
         }
+
+        public void Update(Car car)
+        {
+            int index = cars.IndexOf(cars.Single(c => c.Id == car.Id));
+            cars.RemoveAt(index);
+            cars.Insert(index, mapper.Map<CarEntity>(car));
+        }
     }
 }

@@ -11,8 +11,9 @@ namespace AutoApiUnitTests
         ICarsController carsController;
 
         public CarsControllerTests()
-        {           
-            carsController = new CarsController(new CarRepository(Config.GetMapper(), new InMemoryDataStore()));
+        {
+            var mapper = Config.GetMapper();
+            carsController = new CarsController(new CarRepository(mapper, new InMemoryDataStore()), mapper);
         }
 
         [Fact]
