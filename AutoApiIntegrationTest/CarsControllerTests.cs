@@ -64,7 +64,7 @@ namespace AutoApiIntegrationTest
             car.Price = newPrice;
             var json = JsonConvert.SerializeObject(car);
             stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-            var httpResult = await _httpClient.PutAsync("/api/Cars/" + car.Id, stringContent);
+            var httpResult = await _httpClient.PutAsync("/api/Cars/", stringContent);
             httpResult.EnsureSuccessStatusCode();
 
             car = await _httpClient.GetAsync("/api/Cars/" + car.Id).GetResponse();
@@ -75,9 +75,10 @@ namespace AutoApiIntegrationTest
         [Fact]
         public async void Put_ReturnsNotFound_WhenACarNotPresent()
         {            
-            var httpResult = await _httpClient.PutAsync("/api/Cars/" + 1000, TestHelper.GetCar());
+            var httpResult = await _httpClient.PutAsync("/api/Cars/", TestHelper.GetCar());
             Assert.Equal(HttpStatusCode.NotFound, httpResult.StatusCode);
         }
+
 
         [Fact]
         public async void Delete_Should_MarkAdvertisementDeleted()

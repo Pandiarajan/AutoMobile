@@ -51,10 +51,10 @@ namespace AutoApi.Controllers
                 return NotFound();
         }        
 
-        [HttpPut("{id}")]
-        public ActionResult Put(int id, Car car)
+        [HttpPut]
+        public ActionResult Put(Car car)
         {
-            if (carRepository.Exists(id))
+            if (carRepository.Exists(car.Id))
             {                                
                 carRepository.Update(car);
                 return Ok();

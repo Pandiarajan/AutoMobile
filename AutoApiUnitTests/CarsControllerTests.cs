@@ -40,7 +40,7 @@ namespace AutoApiUnitTests
             car.Title = newTitle;
             car.Price = newPrice;
 
-            var result = carsController.Put(car.Id, car);
+            var result = carsController.Put(car);
             var carAgain = carsController.Get(car.Id).GetCar();
 
             Assert.IsType<OkResult>(result);
@@ -55,7 +55,7 @@ namespace AutoApiUnitTests
             var car = mapper.Map<Car>(contract);
             int invalidCarId = 10000;
             car.Id = invalidCarId;
-            var result = carsController.Put(invalidCarId, car);
+            var result = carsController.Put(car);
             Assert.IsType<NotFoundResult>(result);
         }
 
