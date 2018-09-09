@@ -36,11 +36,19 @@ namespace AutoApiIntegrationTest
         }
 
         [Fact]
-        public async void Get_Should_ReturnACarWhenPresent()
+        public async void Get_Should_Return_ACarWhenPresent()
         {
             int carId = 1;
             var car = await _httpClient.GetAsync("/api/Cars/" + carId).GetResponse();
             Assert.Equal(car.Id, carId);
+        }
+
+        [Fact]
+        public async void Get_Should_ReturnNotFound_WhenACarNotPresent()
+        {
+            int carId = 1000;
+            var httpResult = await _httpClient.GetAsync("/api/Cars/" + carId);
+            Assert.Equal(HttpStatusCode.NotFound, httpResult.StatusCode);
         }
 
         [Fact]
@@ -86,6 +94,14 @@ namespace AutoApiIntegrationTest
             int carId = 2;
             var httpResult = await _httpClient.DeleteAsync("/api/Cars/" + carId);
             httpResult.EnsureSuccessStatusCode();
+        }
+
+        [Fact]
+        public async void Delete_Should_ReturnNotFound_WhenACarNotPresent()
+        {
+            int carId = 1000;
+            var httpResult = await _httpClient.DeleteAsync("/api/Cars/" + carId);
+            Assert.Equal(HttpStatusCode.NotFound, httpResult.StatusCode);
         }
     }
 }
